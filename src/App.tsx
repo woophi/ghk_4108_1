@@ -1,6 +1,7 @@
 import { BottomSheet } from '@alfalab/core-components/bottom-sheet';
 import { ButtonMobile } from '@alfalab/core-components/button/mobile';
 import { Gap } from '@alfalab/core-components/gap';
+import { List } from '@alfalab/core-components/list';
 import { Typography } from '@alfalab/core-components/typography';
 import { useState } from 'react';
 import robotImg from './assets/robot.png';
@@ -11,16 +12,17 @@ const chatBotLink =
 
 export const App = () => {
   const [showBs, setShowBs] = useState(false);
+  const [showBsRules, setShowBsRules] = useState(false);
 
   return (
     <>
       <div className={appSt.container}>
         <div style={{ marginTop: '1rem', textAlign: 'center' }}>
           <Typography.TitleResponsive tag="h1" view="large" font="system" weight="semibold">
-            Инвестиции
+            ИИ-Ассистент
           </Typography.TitleResponsive>
           <Typography.Text view="primary-medium" color="secondary">
-            ИИ-Ассистент
+            Работает в тестовом режиме
           </Typography.Text>
         </div>
         <img src={robotImg} width={80} height={80} style={{ alignSelf: 'center' }} />
@@ -36,26 +38,20 @@ export const App = () => {
               Расскажу, как работает фондовый рынок, почему стоит инвестировать и какие инструменты можно использовать, чтобы
               стать инвестором.
             </Typography.Text>
-          </div>
-        </div>
-        <Typography.Text view="primary-medium" color="secondary" style={{ textAlign: 'right' }}>
-          Примеры вопросов:
-        </Typography.Text>
-        <div className={appSt.chat({ position: 'right' })}>
-          <div className={appSt.chatBubbleTr({ position: 'top' })}>
-            <Typography.Text view="primary-medium" color="secondary">
-              Что такое ЦФА?
-            </Typography.Text>
-          </div>
-          <div className={appSt.chatBubbleTr({ position: 'middle' })}>
-            <Typography.Text view="primary-medium" color="secondary">
-              Что такое краудлендинг?
-            </Typography.Text>
-          </div>
-          <div className={appSt.chatBubbleTr({ position: 'middle' })}>
-            <Typography.Text view="primary-medium" color="secondary">
-              Что значит торговля с плечом?
-            </Typography.Text>
+            <div style={{ marginTop: '1rem' }}>
+              <Typography.Text tag="p" defaultMargins={false} view="primary-small" color="secondary">
+                Примеры вопросов:
+              </Typography.Text>
+              <Typography.Text tag="p" defaultMargins={false} view="primary-medium">
+                Что такое ЦФА?
+              </Typography.Text>
+              <Typography.Text tag="p" defaultMargins={false} view="primary-medium">
+                Что такое краудлендинг?
+              </Typography.Text>
+              <Typography.Text tag="p" defaultMargins={false} view="primary-medium">
+                Что значит торговля с плечом?
+              </Typography.Text>
+            </div>
           </div>
         </div>
       </div>
@@ -70,9 +66,78 @@ export const App = () => {
             setShowBs(true);
           }}
         >
-          Перейти к ассистенту
+          Продолжить
         </ButtonMobile>
+        <Typography.Text view="primary-medium" color="secondary">
+          Продолжая, вы соглашаетесь с{' '}
+          <span onClick={() => setShowBsRules(true)} style={{ textDecoration: 'underline', color: '#000' }}>
+            правилами использования
+          </span>
+          .
+        </Typography.Text>
       </div>
+
+      <BottomSheet
+        open={showBsRules}
+        onClose={() => {
+          setShowBsRules(false);
+        }}
+        contentClassName={appSt.btmContent}
+        hasCloser
+        stickyHeader
+      >
+        <div className={appSt.containerBottom}>
+          <Typography.TitleResponsive tag="h2" view="large" weight="bold">
+            Правила использования «ИИ Ассистента» (Сервис)
+          </Typography.TitleResponsive>
+          <Typography.Text tag="p" defaultMargins={false} view="primary-medium">
+            В Сервисе задействованы нейронные сети (генеративный искусственный интеллект).
+          </Typography.Text>
+          <Typography.Text tag="p" defaultMargins={false} view="primary-medium">
+            При использовании Сервиса я обязуюсь:
+          </Typography.Text>
+
+          <List tag="ul">
+            <List.Item>
+              <Typography.Text view="primary-medium">
+                не размещать, не загружать и не раскрывать каким-либо образом личную и конфиденциальную информацию, включая
+                сведения, содержащие банковскую тайну, и персональные данные (ФИО, номер счета, номер и иные реквизиты карты,
+                номер телефона и др.);
+              </Typography.Text>
+            </List.Item>
+            <List.Item>
+              <Typography.Text view="primary-medium">
+                ответы (результаты), полученные в рамках Сервиса, адаптировать под собственные нужды;
+              </Typography.Text>
+            </List.Item>
+            <List.Item>
+              <Typography.Text view="primary-medium">
+                при использовании ответов, полученных в рамках Сервиса, не указывать, что ответы получены от Банка или
+                являются позицией Банка;
+              </Typography.Text>
+            </List.Item>
+            <List.Item>
+              <Typography.Text view="primary-medium">
+                проверять информацию в других источниках из-за возможных ошибок искусственного интеллекта;
+              </Typography.Text>
+            </List.Item>
+            <List.Item>
+              <Typography.Text view="primary-medium">
+                не использовать Сервис для нарушения нормативных правовых актов, норм морали и нравственности, введения в
+                заблуждение либо распространения недостоверной информации.
+              </Typography.Text>
+            </List.Item>
+          </List>
+          <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
+            Я осознаю, что соблюдение данных правил необходимо для корректной работы Сервиса и несу ответственность за
+            исполнение условий и использование Сервиса и ответов (результатов), полученных в рамках Сервиса.
+          </Typography.Text>
+          <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
+            Информация, предоставленная ии-ассистентом, не является индивидуальной инвестиционной рекомендацией. Предложенные
+            финансовые инструменты и операции могут не соответствовать вашему профилю и целям (ожиданиям).
+          </Typography.Text>
+        </div>
+      </BottomSheet>
 
       <BottomSheet
         open={showBs}
@@ -87,9 +152,14 @@ export const App = () => {
         }
       >
         <div className={appSt.containerBottom}>
-          <Typography.Text view="primary-medium" weight="medium">
-            Информация, предоставленная ии-ассистентом, не является индивидуальной инвестиционной рекомендацией. Предложенные
-            финансовые инструменты и операции могут не соответствовать вашему профилю и целям (ожиданиям).
+          <Typography.TitleResponsive tag="h2" view="large" weight="bold">
+            Внимание!
+          </Typography.TitleResponsive>
+          <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
+            ИИ-ассистент работает в тестовом режиме, поэтому для ответа требуется чуть больше времени.
+          </Typography.Text>
+          <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
+            Так же ответы могут содержать ошибки. Пожалуйста проверяйте точность ответов.
           </Typography.Text>
         </div>
       </BottomSheet>

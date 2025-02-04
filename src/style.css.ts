@@ -7,6 +7,9 @@ const bottomBtn = style({
   width: '100%',
   padding: '12px',
   bottom: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
 });
 
 const container = style({
